@@ -3,10 +3,12 @@ import { logger } from '@shared';
 import { Request, Response, Router } from 'express';
 import { BAD_REQUEST, CREATED, OK } from 'http-status-codes';
 import { paramMissingError } from '@shared';
+import { UserInteractor } from '@usecases';
 
 // Init shared
 const router = Router();
 const userDao = new UserDao();
+const userInteractor = new UserInteractor(userDao);
 
 /******************************************************************************
  *                      Get All Users - "GET /api/users/all"
@@ -14,7 +16,7 @@ const userDao = new UserDao();
 
 router.get('/all', async (req: Request, res: Response) => {
     try {
-        const users = await userDao.getAll();
+        const users = await userInteractor.getAll();
         return res.status(OK).json({users});
     } catch (err) {
         logger.error(err.message, err);
@@ -36,7 +38,7 @@ router.post('/add', async (req: Request, res: Response) => {
                 error: paramMissingError,
             });
         }
-        await userDao.add(user);
+        await userInteractor.add(user);
         return res.status(CREATED).end();
     } catch (err) {
         logger.error(err.message, err);
@@ -59,7 +61,7 @@ router.put('/update', async (req: Request, res: Response) => {
             });
         }
         user.id = Number(user.id);
-        await userDao.update(user);
+        await userInteractor.update(user);
         return res.status(OK).end();
     } catch (err) {
         logger.error(err.message, err);
@@ -75,7 +77,7 @@ router.put('/update', async (req: Request, res: Response) => {
 
 router.delete('/delete/:id', async (req: Request, res: Response) => {
     try {
-        await userDao.delete(Number(req.params.id));
+        await userInteractor.delete(Number(req.params.id));
         return res.status(OK).end();
     } catch (err) {
         logger.error(err.message, err);
