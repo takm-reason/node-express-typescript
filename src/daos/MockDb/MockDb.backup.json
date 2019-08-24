@@ -3,17 +3,20 @@
     {
       "name": "Sean Maxwell",
       "email": "sean.maxwell@gmail.com",
-      "id": 159123164363
+      "id": 159123164363,
+      "createdAt":"2019-08-24T07:14:39.321Z"
     },
     {
       "name": "Gordan Freeman",
       "email": "gordan.freeman@halflife.com",
-      "id": 906524522143
+      "id": 906524522143,
+      "createdAt":"2019-08-24T07:14:39.321Z"
     },
     {
       "name": "John Smith",
       "email": "jsmith@yahoo.com",
-      "id": 357437875835
+      "id": 357437875835,
+      "createdAt":"2019-08-24T07:14:39.321Z"
     }
   ]
 }

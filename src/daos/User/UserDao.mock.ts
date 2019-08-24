@@ -2,6 +2,7 @@ import { IUser } from '@entities';
 import { getRandomInt } from '@shared';
 import { MockDaoMock } from '../MockDb/MockDao.mock';
 import { IUserDao } from './UserDao';
+import moment from 'moment-timezone';
 
 export class UserDao extends MockDaoMock implements IUserDao {
 
@@ -18,6 +19,7 @@ export class UserDao extends MockDaoMock implements IUserDao {
         try {
             const db = await super.openDb();
             user.id = getRandomInt();
+            user.createdAt = moment();
             db.users.push(user);
             await super.saveDb(db);
         } catch (err) {

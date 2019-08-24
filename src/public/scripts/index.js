@@ -137,6 +137,7 @@ function getUserDisplayEle(user) {
         <div class="normal-view">
             <div>Name: ${user.name}</div>
             <div>Email: ${user.email}</div>
+            <div>Create: ${user.createdAt}</div>
             <button class="edit-user-btn" data-user-id="${user.id}">
                 Edit
             </button>
