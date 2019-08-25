@@ -4,11 +4,13 @@ import { Request, Response, Router } from 'express';
 import { BAD_REQUEST, CREATED, OK } from 'http-status-codes';
 import { paramMissingError } from '@shared';
 import { UserInteractor } from '@usecases';
+import { UsersPresenter } from '../presenter/index';
 
 // Init shared
 const router = Router();
 const userDao = new UserDao();
 const userInteractor = new UserInteractor(userDao);
+const usersPresenter = new UsersPresenter();
 
 /******************************************************************************
  *                      Get All Users - "GET /api/users/all"
@@ -16,7 +18,7 @@ const userInteractor = new UserInteractor(userDao);
 
 router.get('/all', async (req: Request, res: Response) => {
     try {
-        const users = await userInteractor.getAll();
+        const users = usersPresenter.getAll(await userInteractor.getAll());
         return res.status(OK).json({users});
     } catch (err) {
         logger.error(err.message, err);
